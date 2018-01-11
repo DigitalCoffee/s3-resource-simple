@@ -20,12 +20,17 @@ resources:
     secret_access_key: {{aws-secret-key}}
     bucket: {{aws-bucket}}
     path: [<optional>, use to sync to a specific path of the bucket instead of root of bucket]
+    prefix: [<optional>, used for checking. Can check files at root of bucket not in 'path']
     options: [<optional, see note below>]
+    no_verify_ssl: [<optional>, set to true to disable ssl verification]
+
 jobs:
 - name: <job name>
   plan:
   - <some Resource or Task that outputs files>
   - put: <resource name>
+    params:
+      input: [<optional>, sync files in a specific resource]
 ```
 
 In case of [minio](https://www.minio.io/),
@@ -46,12 +51,16 @@ resources:
     endpoint: {{minio-endpoint-url}}
     use_v4: true
     path: [<optional>, use to sync to a specific path of the bucket instead of root of bucket]
+    prefix: [<optional>, used for checking. Can check files at root of bucket not in 'path']
     options: [<optional, see note below>]
+    no_verify_ssl: [<optional>, set to true to disable ssl verification]
 jobs:
 - name: <job name>
   plan:
   - <some Resource or Task that outputs files>
   - put: <resource name>
+    params:
+      input: [<optional>, sync files in a specific resource]
 ```
 
 ## AWS Credentials
